@@ -1,58 +1,46 @@
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { useToast } from "@/hooks/use-toast";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const PercentageCalculator = () => {
-  const { toast } = useToast();
   const [number, setNumber] = useState("");
   const [percentage, setPercentage] = useState("");
   const [result, setResult] = useState<number | null>(null);
 
   const calculatePercentage = () => {
-    const num = parseFloat(number);
-    const perc = parseFloat(percentage);
-
-    if (isNaN(num) || isNaN(perc)) {
-      toast({
-        title: "Invalid Input",
-        description: "Please enter valid numbers",
-        variant: "destructive",
-      });
-      return;
+    if (number && percentage) {
+      const value = (parseFloat(number) * parseFloat(percentage)) / 100;
+      setResult(parseFloat(value.toFixed(2)));
     }
-
-    setResult((num * perc) / 100);
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <Card className="max-w-2xl mx-auto">
+    <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+      <Card className="max-w-md mx-auto">
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center">Percentage Calculator</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-6">
-          <div className="space-y-2">
-            <Label htmlFor="number">Number</Label>
+        <CardContent className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Number</label>
             <Input
-              id="number"
               type="number"
               value={number}
               onChange={(e) => setNumber(e.target.value)}
-              placeholder="Enter the number"
+              placeholder="Enter number"
+              className="mt-1"
             />
           </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="percentage">Percentage (%)</Label>
+          
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Percentage</label>
             <Input
-              id="percentage"
               type="number"
               value={percentage}
               onChange={(e) => setPercentage(e.target.value)}
-              placeholder="Enter the percentage"
+              placeholder="Enter percentage"
+              className="mt-1"
             />
           </div>
 
@@ -61,13 +49,9 @@ const PercentageCalculator = () => {
           </Button>
 
           {result !== null && (
-            <div className="mt-6 p-4 bg-primary/5 rounded-lg">
-              <h3 className="text-lg font-semibold mb-2">Result</h3>
-              <p className="text-2xl font-bold text-primary">
-                {result.toFixed(2)}
-              </p>
-              <p className="text-sm text-gray-600 mt-1">
-                {percentage}% of {number} is {result.toFixed(2)}
+            <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+              <p className="text-lg font-semibold">
+                {percentage}% of {number} is: {result}
               </p>
             </div>
           )}

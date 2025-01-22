@@ -1,11 +1,8 @@
-import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
 
 const BasicCalculator = () => {
-  const { toast } = useToast();
   const [display, setDisplay] = useState("");
   const [equation, setEquation] = useState("");
 
@@ -14,71 +11,68 @@ const BasicCalculator = () => {
   };
 
   const handleOperator = (operator: string) => {
-    setDisplay(display + " " + operator + " ");
+    setEquation(display + operator);
+    setDisplay("");
   };
 
-  const handleClear = () => {
+  const calculateResult = () => {
+    try {
+      const result = eval(equation + display);
+      setDisplay(result.toString());
+      setEquation("");
+    } catch (error) {
+      setDisplay("Error");
+      setEquation("");
+    }
+  };
+
+  const clearDisplay = () => {
     setDisplay("");
     setEquation("");
   };
 
-  const handleCalculate = () => {
-    try {
-      // Replace × with * and ÷ with / for evaluation
-      const sanitizedEquation = display.replace(/×/g, '*').replace(/÷/g, '/');
-      const result = eval(sanitizedEquation);
-      setEquation(display + " = ");
-      setDisplay(result.toString());
-    } catch (error) {
-      toast({
-        title: "Invalid Expression",
-        description: "Please enter a valid mathematical expression",
-        variant: "destructive",
-      });
-    }
-  };
-
   return (
-    <div className="container mx-auto px-4 py-8">
-      <Card className="max-w-md mx-auto">
-        <CardHeader>
-          <CardTitle className="text-2xl font-bold text-center">Basic Calculator</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <div className="bg-gray-100 p-4 rounded-lg">
-              <div className="text-gray-600 text-sm h-6">{equation}</div>
-              <div className="text-2xl font-bold">{display}</div>
-            </div>
-            
-            <div className="grid grid-cols-4 gap-2">
-              <Button variant="outline" onClick={() => handleClear()}>C</Button>
-              <Button variant="outline" onClick={() => handleOperator('(')}>(</Button>
-              <Button variant="outline" onClick={() => handleOperator(')')}>)</Button>
-              <Button variant="outline" onClick={() => handleOperator('÷')}>÷</Button>
-              
-              <Button variant="outline" onClick={() => handleNumber('7')}>7</Button>
-              <Button variant="outline" onClick={() => handleNumber('8')}>8</Button>
-              <Button variant="outline" onClick={() => handleNumber('9')}>9</Button>
-              <Button variant="outline" onClick={() => handleOperator('×')}>×</Button>
-              
-              <Button variant="outline" onClick={() => handleNumber('4')}>4</Button>
-              <Button variant="outline" onClick={() => handleNumber('5')}>5</Button>
-              <Button variant="outline" onClick={() => handleNumber('6')}>6</Button>
-              <Button variant="outline" onClick={() => handleOperator('-')}>-</Button>
-              
-              <Button variant="outline" onClick={() => handleNumber('1')}>1</Button>
-              <Button variant="outline" onClick={() => handleNumber('2')}>2</Button>
-              <Button variant="outline" onClick={() => handleNumber('3')}>3</Button>
-              <Button variant="outline" onClick={() => handleOperator('+')}>+</Button>
-              
-              <Button variant="outline" onClick={() => handleNumber('0')}>0</Button>
-              <Button variant="outline" onClick={() => handleNumber('.')}>.</Button>
-              <Button className="col-span-2" onClick={() => handleCalculate()}>=</Button>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+    <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden p-6">
+        <h1 className="text-2xl font-bold text-center mb-6">Basic Calculator</h1>
+        
+        <div className="mb-4">
+          <Input
+            type="text"
+            value={equation + display}
+            readOnly
+            className="w-full text-right text-xl p-2"
+          />
+        </div>
+
+        <div className="grid grid-cols-4 gap-2">
+          {[7, 8, 9, '/', 4, 5, 6, '*', 1, 2, 3, '-', 0, '.', '=', '+'].map((item, index) => (
+            <Button
+              key={index}
+              onClick={() => {
+                if (item === '=') {
+                  calculateResult();
+                } else if (['+', '-', '*', '/'].includes(item.toString())) {
+                  handleOperator(item.toString());
+                } else {
+                  handleNumber(item.toString());
+                }
+              }}
+              variant="outline"
+              className="p-4 text-lg"
+            >
+              {item}
+            </Button>
+          ))}
+          <Button
+            onClick={clearDisplay}
+            variant="destructive"
+            className="col-span-4 mt-2"
+          >
+            Clear
+          </Button>
+        </div>
+      </div>
     </div>
   );
 };

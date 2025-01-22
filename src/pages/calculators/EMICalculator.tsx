@@ -1,83 +1,73 @@
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { useToast } from "@/hooks/use-toast";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const EMICalculator = () => {
-  const { toast } = useToast();
   const [loanAmount, setLoanAmount] = useState("");
   const [interestRate, setInterestRate] = useState("");
-  const [loanTenure, setLoanTenure] = useState("");
+  const [tenure, setTenure] = useState("");
   const [result, setResult] = useState<{
     emi: number;
     totalInterest: number;
-    totalAmount: number;
+    totalPayment: number;
   } | null>(null);
 
   const calculateEMI = () => {
-    const principal = parseFloat(loanAmount);
-    const rate = parseFloat(interestRate) / 12 / 100; // Monthly interest rate
-    const time = parseFloat(loanTenure) * 12; // Time in months
+    if (loanAmount && interestRate && tenure) {
+      const P = parseFloat(loanAmount);
+      const r = parseFloat(interestRate) / 12 / 100;
+      const n = parseFloat(tenure) * 12;
 
-    if (isNaN(principal) || isNaN(rate) || isNaN(time)) {
-      toast({
-        title: "Invalid Input",
-        description: "Please enter valid numbers for all fields",
-        variant: "destructive",
+      const emi = P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+      const totalPayment = emi * n;
+      const totalInterest = totalPayment - P;
+
+      setResult({
+        emi: parseFloat(emi.toFixed(2)),
+        totalInterest: parseFloat(totalInterest.toFixed(2)),
+        totalPayment: parseFloat(totalPayment.toFixed(2)),
       });
-      return;
     }
-
-    const emi = principal * rate * Math.pow(1 + rate, time) / (Math.pow(1 + rate, time) - 1);
-    const totalAmount = emi * time;
-    const totalInterest = totalAmount - principal;
-
-    setResult({
-      emi,
-      totalInterest,
-      totalAmount,
-    });
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <Card className="max-w-2xl mx-auto">
+    <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+      <Card className="max-w-md mx-auto">
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center">EMI Calculator</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-6">
-          <div className="space-y-2">
-            <Label htmlFor="loanAmount">Loan Amount (₹)</Label>
+        <CardContent className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Loan Amount (₹)</label>
             <Input
-              id="loanAmount"
               type="number"
               value={loanAmount}
               onChange={(e) => setLoanAmount(e.target.value)}
               placeholder="Enter loan amount"
+              className="mt-1"
             />
           </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="interestRate">Interest Rate (% per annum)</Label>
+          
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Interest Rate (%)</label>
             <Input
-              id="interestRate"
               type="number"
               value={interestRate}
               onChange={(e) => setInterestRate(e.target.value)}
               placeholder="Enter annual interest rate"
+              className="mt-1"
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="loanTenure">Loan Tenure (Years)</Label>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Loan Tenure (Years)</label>
             <Input
-              id="loanTenure"
               type="number"
-              value={loanTenure}
-              onChange={(e) => setLoanTenure(e.target.value)}
-              placeholder="Enter loan tenure in years"
+              value={tenure}
+              onChange={(e) => setTenure(e.target.value)}
+              placeholder="Enter loan tenure"
+              className="mt-1"
             />
           </div>
 
@@ -85,24 +75,17 @@ const EMICalculator = () => {
             Calculate EMI
           </Button>
 
-          {result !== null && (
-            <div className="mt-6 p-4 bg-primary/5 rounded-lg space-y-4">
-              <div>
-                <h3 className="text-sm font-semibold text-gray-600">Monthly EMI</h3>
-                <p className="text-2xl font-bold text-primary">
-                  ₹{result.emi.toFixed(2)}
-                </p>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <h3 className="text-sm font-semibold text-gray-600">Total Interest</h3>
-                  <p className="text-lg font-bold">₹{result.totalInterest.toFixed(2)}</p>
-                </div>
-                <div>
-                  <h3 className="text-sm font-semibold text-gray-600">Total Amount</h3>
-                  <p className="text-lg font-bold">₹{result.totalAmount.toFixed(2)}</p>
-                </div>
-              </div>
+          {result && (
+            <div className="mt-4 p-4 bg-gray-50 rounded-lg space-y-2">
+              <p className="text-md">
+                <span className="font-semibold">Monthly EMI:</span> ₹{result.emi}
+              </p>
+              <p className="text-md">
+                <span className="font-semibold">Total Interest:</span> ₹{result.totalInterest}
+              </p>
+              <p className="text-md">
+                <span className="font-semibold">Total Payment:</span> ₹{result.totalPayment}
+              </p>
             </div>
           )}
         </CardContent>
