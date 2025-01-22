@@ -1,80 +1,84 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useState } from "react";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 
 const GSTCalculator = () => {
   const [amount, setAmount] = useState("");
-  const [gstRate, setGSTRate] = useState("18");
+  const [gstRate, setGstRate] = useState("");
   const [result, setResult] = useState<{
     gstAmount: number;
     totalAmount: number;
   } | null>(null);
 
   const calculateGST = () => {
-    if (amount && gstRate) {
-      const baseAmount = parseFloat(amount);
-      const rate = parseFloat(gstRate);
+    const baseAmount = parseFloat(amount);
+    const rate = parseFloat(gstRate);
+    
+    if (!isNaN(baseAmount) && !isNaN(rate)) {
       const gstAmount = (baseAmount * rate) / 100;
       const totalAmount = baseAmount + gstAmount;
-
+      
       setResult({
         gstAmount: parseFloat(gstAmount.toFixed(2)),
-        totalAmount: parseFloat(totalAmount.toFixed(2)),
+        totalAmount: parseFloat(totalAmount.toFixed(2))
       });
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-      <Card className="max-w-md mx-auto">
-        <CardHeader>
-          <CardTitle className="text-2xl font-bold text-center">GST Calculator</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Amount (₹)</label>
-            <Input
-              type="number"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              placeholder="Enter amount"
-              className="mt-1"
-            />
-          </div>
+    <div className="min-h-screen flex flex-col">
+      <Header />
+      <main className="flex-grow py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden p-6">
+          <h1 className="text-2xl font-bold text-center mb-6">GST Calculator</h1>
           
-          <div>
-            <label className="block text-sm font-medium text-gray-700">GST Rate (%)</label>
-            <Select value={gstRate} onValueChange={setGSTRate}>
-              <SelectTrigger className="mt-1">
-                <SelectValue placeholder="Select GST rate" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="5">5%</SelectItem>
-                <SelectItem value="12">12%</SelectItem>
-                <SelectItem value="18">18%</SelectItem>
-                <SelectItem value="28">28%</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <Button onClick={calculateGST} className="w-full">
-            Calculate GST
-          </Button>
-
-          {result && (
-            <div className="mt-4 p-4 bg-gray-50 rounded-lg space-y-2">
-              <p className="text-md">
-                <span className="font-semibold">GST Amount:</span> ₹{result.gstAmount}
-              </p>
-              <p className="text-md">
-                <span className="font-semibold">Total Amount:</span> ₹{result.totalAmount}
-              </p>
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium mb-1">Amount (₹)</label>
+              <Input
+                type="number"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                placeholder="Enter amount before GST"
+              />
             </div>
-          )}
-        </CardContent>
-      </Card>
+            
+            <div>
+              <label className="block text-sm font-medium mb-1">GST Rate (%)</label>
+              <Input
+                type="number"
+                value={gstRate}
+                onChange={(e) => setGstRate(e.target.value)}
+                placeholder="Enter GST rate"
+              />
+            </div>
+
+            <Button 
+              onClick={calculateGST}
+              className="w-full"
+            >
+              Calculate GST
+            </Button>
+
+            {result && (
+              <div className="mt-4 p-4 bg-gray-50 rounded-lg space-y-2">
+                <p className="text-gray-600">
+                  Base Amount: ₹{parseFloat(amount).toLocaleString()}
+                </p>
+                <p className="text-gray-600">
+                  GST Amount: ₹{result.gstAmount.toLocaleString()}
+                </p>
+                <p className="text-lg font-semibold">
+                  Total Amount: ₹{result.totalAmount.toLocaleString()}
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      </main>
+      <Footer />
     </div>
   );
 };
