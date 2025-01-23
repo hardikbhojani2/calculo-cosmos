@@ -5,9 +5,8 @@ import {
   Leaf, TreePine, Mountain, Waves, Clock, Watch, Hourglass,
   AlarmClock, Calculator as CalcIcon, Wallet, CreditCard,
   Landmark, TrendingUp, LineChart, BarChart, PieChart,
-  // Add missing icons
-  Grid, Binary, Utensils, Baby, Heartbeat, Home, 
-  Briefcase, Globe, Square, Cube, Compass, Function,
+  Grid, Binary, Utensils, Baby, HeartPulse, Home, 
+  Briefcase, Globe, Square, Box, Compass, Calculator as FunctionIcon,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -58,7 +57,7 @@ const calculators = [
   {
     title: 'Equation Solver',
     description: 'Solve linear and quadratic equations',
-    icon: Function,
+    icon: FunctionIcon,
     path: '/calculator/equation',
     category: 'Math',
   },
@@ -116,7 +115,7 @@ const calculators = [
   {
     title: 'Target Heart Rate',
     description: 'Calculate optimal heart rate zones for exercise',
-    icon: Heartbeat,
+    icon: HeartPulse,
     path: '/calculator/heart-rate',
     category: 'Health',
   },
@@ -262,7 +261,7 @@ const calculators = [
   {
     title: 'Volume Calculator',
     description: 'Calculate volume of 3D shapes',
-    icon: Cube,
+    icon: Box,
     path: '/calculator/volume',
     category: 'Measurement',
   },
