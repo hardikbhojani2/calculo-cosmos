@@ -5,8 +5,9 @@ import {
   Leaf, TreePine, Mountain, Waves, Clock, Watch, Hourglass,
   AlarmClock, Calculator as CalcIcon, Wallet, CreditCard,
   Landmark, TrendingUp, LineChart, BarChart, PieChart,
-  Grid, Binary, Utensils, Baby, HeartPulse, Home, 
-  Briefcase, Globe, Square, Box, Compass, Calculator as FunctionIcon,
+  Grid as GridIcon, Binary as BinaryIcon, Utensils as UtensilsIcon, Baby as BabyIcon, 
+  HeartPulse, Home as HomeIcon, Briefcase as BriefcaseIcon, Globe as GlobeIcon, 
+  Square as SquareIcon, Box, Compass as CompassIcon, Calculator as FunctionIcon,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -43,7 +44,7 @@ const calculators = [
   {
     title: 'Matrix Calculator',
     description: 'Perform matrix operations and calculations',
-    icon: Grid,
+    icon: GridIcon,
     path: '/calculator/matrix',
     category: 'Math',
   },
@@ -64,7 +65,7 @@ const calculators = [
   {
     title: 'Number Base Converter',
     description: 'Convert between binary, decimal, hexadecimal',
-    icon: Binary,
+    icon: BinaryIcon,
     path: '/calculator/base-converter',
     category: 'Math',
   },
@@ -94,14 +95,14 @@ const calculators = [
   {
     title: 'Calorie Calculator',
     description: 'Track daily caloric needs and expenditure',
-    icon: Utensils,
+    icon: UtensilsIcon,
     path: '/calculator/calorie',
     category: 'Health',
   },
   {
     title: 'Pregnancy Calculator',
     description: 'Calculate due date and pregnancy milestones',
-    icon: Baby,
+    icon: BabyIcon,
     path: '/calculator/pregnancy',
     category: 'Health',
   },
@@ -166,7 +167,7 @@ const calculators = [
   {
     title: 'Mortgage Calculator',
     description: 'Calculate mortgage payments and amortization',
-    icon: Home,
+    icon: HomeIcon,
     path: '/calculator/mortgage',
     category: 'Finance',
   },
@@ -210,14 +211,14 @@ const calculators = [
   {
     title: 'Working Days',
     description: 'Calculate working days between dates',
-    icon: Briefcase,
+    icon: BriefcaseIcon,
     path: '/calculator/working-days',
     category: 'Time',
   },
   {
     title: 'Time Zone Converter',
     description: 'Convert times between different time zones',
-    icon: Globe,
+    icon: GlobeIcon,
     path: '/calculator/timezone',
     category: 'Time',
   },
@@ -254,7 +255,7 @@ const calculators = [
   {
     title: 'Area Calculator',
     description: 'Calculate area of various shapes',
-    icon: Square,
+    icon: SquareIcon,
     path: '/calculator/area',
     category: 'Measurement',
   },
@@ -296,7 +297,7 @@ const calculators = [
   {
     title: 'Pressure Calculator',
     description: 'Convert between pressure units',
-    icon: Compass,
+    icon: CompassIcon,
     path: '/calculator/pressure',
     category: 'Measurement',
   },
