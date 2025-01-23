@@ -4,7 +4,10 @@ import {
   Gauge, Wind, Sunrise, Cloud, Umbrella, Zap, Activity,
   Leaf, TreePine, Mountain, Waves, Clock, Watch, Hourglass,
   AlarmClock, Calculator as CalcIcon, Wallet, CreditCard,
-  Landmark, TrendingUp, LineChart, BarChart, PieChart
+  Landmark, TrendingUp, LineChart, BarChart, PieChart,
+  // Add missing icons
+  Grid, Binary, Utensils, Baby, Heartbeat, Home, 
+  Briefcase, Globe, Square, Cube, Compass, Function,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
