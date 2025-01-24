@@ -5,8 +5,6 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CalculatorLayout } from "@/components/ui/calculator-layout";
 import { useToast } from "@/hooks/use-toast";
-import { CalculatorInstructions } from "@/components/CalculatorInstructions";
-import { SimilarCalculators } from "@/components/SimilarCalculators";
 
 const BasicCalculator = () => {
   const [display, setDisplay] = useState("");
@@ -87,22 +85,17 @@ const BasicCalculator = () => {
       description: "Work with fractions and mixed numbers",
       path: "/calculator/fraction",
     },
-    {
-      title: "Statistics Calculator",
-      description: "Calculate mean, median, mode and more",
-      path: "/calculator/statistics",
-    },
   ];
 
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-grow py-12 px-4">
-        <div className="max-w-6xl mx-auto">
-          <CalculatorInstructions {...instructions} />
-          
-          <CalculatorLayout title="Basic Calculator">
-            <div className="space-y-4">
+      <CalculatorLayout 
+        title="Basic Calculator"
+        instructions={instructions}
+        similarCalculators={similarCalculators}
+      >
+        <div className="space-y-4">
               <Input
                 type="text"
                 value={equation + display}
@@ -137,12 +130,8 @@ const BasicCalculator = () => {
                   Clear
                 </Button>
               </div>
-            </div>
-          </CalculatorLayout>
-
-          <SimilarCalculators calculators={similarCalculators} />
         </div>
-      </main>
+      </CalculatorLayout>
       <Footer />
     </div>
   );
