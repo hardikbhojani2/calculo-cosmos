@@ -5,6 +5,8 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CalculatorLayout } from "@/components/ui/calculator-layout";
 import { useToast } from "@/components/ui/use-toast";
+import { CalculatorInstructions } from "@/components/CalculatorInstructions";
+import { SimilarCalculators } from "@/components/SimilarCalculators";
 
 const BMICalculator = () => {
   const [height, setHeight] = useState("");
@@ -39,10 +41,49 @@ const BMICalculator = () => {
     return "Obese";
   };
 
+  const instructions = {
+    title: "How to Use BMI Calculator",
+    description: "Calculate your Body Mass Index (BMI) to assess your weight category",
+    steps: [
+      {
+        title: "Enter Height",
+        description: "Input your height in centimeters (e.g., 170 cm)"
+      },
+      {
+        title: "Enter Weight",
+        description: "Input your weight in kilograms (e.g., 70 kg)"
+      },
+      {
+        title: "Get Results",
+        description: "Click 'Calculate BMI' to see your BMI and weight category"
+      }
+    ]
+  };
+
+  const similarCalculators = [
+    {
+      title: "Body Fat Calculator",
+      description: "Calculate your body fat percentage",
+      path: "/calculator/body-fat"
+    },
+    {
+      title: "Calorie Calculator",
+      description: "Calculate daily calorie needs",
+      path: "/calculator/calorie"
+    },
+    {
+      title: "Ideal Weight Calculator",
+      description: "Find your ideal weight range",
+      path: "/calculator/ideal-weight"
+    }
+  ];
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <CalculatorLayout title="BMI Calculator">
+      <main className="flex-grow py-12 px-4">
+        <div className="max-w-6xl mx-auto">
+          <CalculatorLayout title="BMI Calculator">
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium mb-1">Height (cm)</label>
@@ -80,7 +121,15 @@ const BMICalculator = () => {
             </div>
           )}
         </div>
-      </CalculatorLayout>
+          </CalculatorLayout>
+
+          <div className="mt-16">
+            <CalculatorInstructions {...instructions} />
+          </div>
+
+          <SimilarCalculators calculators={similarCalculators} />
+        </div>
+      </main>
       <Footer />
     </div>
   );
