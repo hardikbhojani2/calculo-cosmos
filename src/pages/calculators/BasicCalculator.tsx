@@ -52,6 +52,24 @@ const BasicCalculator = () => {
     setEquation("");
   };
 
+  const similarCalculators = [
+    {
+      title: "Scientific Calculator",
+      description: "Advanced calculations with scientific functions",
+      path: "/calculator/scientific"
+    },
+    {
+      title: "Percentage Calculator",
+      description: "Calculate percentages and ratios",
+      path: "/calculator/percentage"
+    },
+    {
+      title: "Fraction Calculator",
+      description: "Work with fractions and mixed numbers",
+      path: "/calculator/fraction"
+    }
+  ];
+
   const instructions = {
     title: "How to Use Basic Calculator",
     description: "Follow these simple steps to perform calculations efficiently",
@@ -71,31 +89,11 @@ const BasicCalculator = () => {
     ]
   };
 
-  const similarCalculators = [
-    {
-      title: "Scientific Calculator",
-      description: "Advanced calculations with scientific functions",
-      path: "/calculator/scientific"
-    },
-    {
-      title: "Percentage Calculator",
-      description: "Calculate percentages and ratios",
-      path: "/calculator/percentage"
-    },
-    {
-      title: "Fraction Calculator",
-      description: "Work with fractions and mixed numbers",
-      path: "/calculator/fraction"
-    }
-  ];
-
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-grow py-12 px-4">
         <div className="max-w-6xl mx-auto">
-          <CalculatorInstructions {...instructions} />
-          
           <CalculatorLayout title="Basic Calculator">
             <div className="space-y-4">
               <Input
@@ -136,6 +134,10 @@ const BasicCalculator = () => {
           </CalculatorLayout>
 
           <SimilarCalculators calculators={similarCalculators} />
+          
+          <div className="mt-16">
+            <CalculatorInstructions {...instructions} />
+          </div>
         </div>
       </main>
       <Footer />
