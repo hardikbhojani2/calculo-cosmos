@@ -133,11 +133,11 @@ const BasicCalculator = () => {
             </div>
           </CalculatorLayout>
 
-          <SimilarCalculators calculators={similarCalculators} />
-          
           <div className="mt-16">
             <CalculatorInstructions {...instructions} />
           </div>
+
+          <SimilarCalculators calculators={similarCalculators} />
         </div>
       </main>
       <Footer />
