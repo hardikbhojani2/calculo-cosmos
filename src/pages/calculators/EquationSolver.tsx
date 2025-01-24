@@ -5,6 +5,8 @@ import { CalculatorLayout } from "@/components/ui/calculator-layout";
 import { useToast } from "@/hooks/use-toast";
 import { CalculatorInstructions } from "@/components/CalculatorInstructions";
 import { SimilarCalculators } from "@/components/SimilarCalculators";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 
 interface QuadraticResult {
   x1: number;
