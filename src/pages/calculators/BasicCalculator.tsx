@@ -58,40 +58,35 @@ const BasicCalculator = () => {
     steps: [
       {
         title: "Enter Numbers",
-        description: "Click the number buttons or use your keyboard to input values",
+        description: "Click the number buttons or use your keyboard to input values"
       },
       {
         title: "Choose Operation",
-        description: "Select the mathematical operation (+, -, ×, ÷) you want to perform",
+        description: "Select the mathematical operation (+, -, ×, ÷) you want to perform"
       },
       {
         title: "Get Result",
-        description: "Press the equals (=) button or Enter key to see your calculation result",
-      },
-    ],
+        description: "Press the equals (=) button or Enter key to see your calculation result"
+      }
+    ]
   };
 
   const similarCalculators = [
     {
       title: "Scientific Calculator",
       description: "Advanced calculations with scientific functions",
-      path: "/calculator/scientific",
+      path: "/calculator/scientific"
     },
     {
       title: "Percentage Calculator",
       description: "Calculate percentages and ratios",
-      path: "/calculator/percentage",
+      path: "/calculator/percentage"
     },
     {
       title: "Fraction Calculator",
       description: "Work with fractions and mixed numbers",
-      path: "/calculator/fraction",
-    },
-    {
-      title: "Statistics Calculator",
-      description: "Calculate mean, median, mode and more",
-      path: "/calculator/statistics",
-    },
+      path: "/calculator/fraction"
+    }
   ];
 
   return (
